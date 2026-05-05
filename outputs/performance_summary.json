@@ -1,0 +1,142 @@
+[
+  {
+    "Type": "Stocks",
+    "Name": "LREN3",
+    "Value": "R$27,812.04",
+    "Weight": "8.91%",
+    "Last Month Return": "-7.78%",
+    "Cumulative Return": "4.26% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-8.87%",
+    "Cumulative vs CDI": "-2.66%"
+  },
+  {
+    "Type": "Stocks",
+    "Name": "MBRF3",
+    "Value": "R$15,432.89",
+    "Weight": "4.94%",
+    "Last Month Return": "-19.45%",
+    "Cumulative Return": "-12.76% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-20.54%",
+    "Cumulative vs CDI": "-19.68%"
+  },
+  {
+    "Type": "Stocks",
+    "Name": "AZZA3",
+    "Value": "R$10,923.72",
+    "Weight": "3.50%",
+    "Last Month Return": "-15.88%",
+    "Cumulative Return": "-8.20% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-16.97%",
+    "Cumulative vs CDI": "-15.13%"
+  },
+  {
+    "Type": "Stocks",
+    "Name": "HAPV3",
+    "Value": "R$6,143.14",
+    "Weight": "1.97%",
+    "Last Month Return": "22.67%",
+    "Cumulative Return": "-15.89% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "21.58%",
+    "Cumulative vs CDI": "-22.81%"
+  },
+  {
+    "Type": "Funds",
+    "Name": "Riza Lotus Plus Advisory FIC FIRF REF DI CP",
+    "Value": "R$96,178.73",
+    "Weight": "30.81%",
+    "Last Month Return": "0.06%",
+    "Cumulative Return": "4.55% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-1.03%",
+    "Cumulative vs CDI": "-2.37%"
+  },
+  {
+    "Type": "Funds",
+    "Name": "Brave 90 FIC FIDC",
+    "Value": "R$72,567.43",
+    "Weight": "23.24%",
+    "Last Month Return": "1.14%",
+    "Cumulative Return": "7.61% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "0.05%",
+    "Cumulative vs CDI": "0.69%"
+  },
+  {
+    "Type": "Funds",
+    "Name": "Trend Investback FIC FIRF Simples",
+    "Value": "R$305.44",
+    "Weight": "0.10%",
+    "Last Month Return": "0.11%",
+    "Cumulative Return": "4.83% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-0.98%",
+    "Cumulative vs CDI": "-2.09%"
+  },
+  {
+    "Type": "Funds",
+    "Name": "Truxt Long Bias Advisory FIC FIM",
+    "Value": "R$12,522.05",
+    "Weight": "4.01%",
+    "Last Month Return": "1.18%",
+    "Cumulative Return": "8.68% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "0.09%",
+    "Cumulative vs CDI": "1.76%"
+  },
+  {
+    "Type": "Funds",
+    "Name": "STK Long Biased FIC FIA",
+    "Value": "R$9,745.97",
+    "Weight": "3.12%",
+    "Last Month Return": "0.63%",
+    "Cumulative Return": "1.40% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-0.46%",
+    "Cumulative vs CDI": "-5.52%"
+  },
+  {
+    "Type": "Funds",
+    "Name": "Constellation Institucional Advisory FIC FIA",
+    "Value": "R$8,475.02",
+    "Weight": "2.71%",
+    "Last Month Return": "0.77%",
+    "Cumulative Return": "1.80% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-0.32%",
+    "Cumulative vs CDI": "-5.13%"
+  },
+  {
+    "Type": "Funds",
+    "Name": "Ibiuna Hedge ST Advisory FIC FIM",
+    "Value": "R$11,601.02",
+    "Weight": "3.72%",
+    "Last Month Return": "0.29%",
+    "Cumulative Return": "-5.16% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-0.80%",
+    "Cumulative vs CDI": "-12.08%"
+  },
+  {
+    "Type": "Fixed Revenue",
+    "Name": "CDB BANCO C6 CONSIGNADO S.A. - SET/2024",
+    "Value": "R$40,478.75",
+    "Weight": "12.97%",
+    "Last Month Return": "-",
+    "Cumulative Return": "4.77% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-",
+    "Cumulative vs CDI": "-2.15%"
+  },
+  {
+    "Type": "Portfolio",
+    "Name": "Global Portfolio Return",
+    "Value": "R$312,186.20",
+    "Weight": "100.00%",
+    "Last Month Return": "-1.59%",
+    "Cumulative Return": "4.18% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-2.68%",
+    "Cumulative vs CDI": "-2.75%"
+  },
+  {
+    "Type": "Benchmark",
+    "Name": "CDI (Benchmark)",
+    "Value": "—",
+    "Weight": "-",
+    "Last Month Return": "1.09%",
+    "Cumulative Return": "6.92% (from nov/25 to apr/26)",
+    "Last Month vs CDI": "-",
+    "Cumulative vs CDI": "-"
+  }
+]

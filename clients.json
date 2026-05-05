@@ -1,0 +1,14 @@
+[
+  {
+    "id": "albert",
+    "name": "Albert",
+    "full_name": "Albert de Souza",
+    "email": "albert.souza@clientexp.com",
+    "portfolio_file": "XP - Albert_s portfolio.txt",
+    "risk_file": "XP - Albert_s risk profile.txt",
+    "macro_file": "XP - Macro analysis.txt",
+    "advisor_name": "Antonio Bicudo",
+    "advisor_phone": "+55 11 99504-3853",
+    "advisor_email": "fabiano.ms.ramos@outlook.com"
+  }
+]

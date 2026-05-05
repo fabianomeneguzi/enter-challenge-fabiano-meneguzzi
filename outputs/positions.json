@@ -1,0 +1,62 @@
+[
+  {
+    "type": "Stocks",
+    "name": "LREN3",
+    "value": "R$27,812.04"
+  },
+  {
+    "type": "Stocks",
+    "name": "MRFG3",
+    "value": "R$15,432.89"
+  },
+  {
+    "type": "Stocks",
+    "name": "ARZZ3",
+    "value": "R$10,923.72"
+  },
+  {
+    "type": "Stocks",
+    "name": "HAPV3",
+    "value": "R$6,143.14"
+  },
+  {
+    "type": "Funds",
+    "name": "Riza Lotus Plus Advisory FIC FIRF REF DI CP",
+    "value": "R$96,178.73"
+  },
+  {
+    "type": "Funds",
+    "name": "Brave I FIC FIM CP",
+    "value": "R$72,567.43"
+  },
+  {
+    "type": "Funds",
+    "name": "Trend Investback FIC FIRF Simples",
+    "value": "R$305.44"
+  },
+  {
+    "type": "Funds",
+    "name": "Truxt Long Bias Advisory FIC FIM",
+    "value": "R$12,522.05"
+  },
+  {
+    "type": "Funds",
+    "name": "STK Long Biased FIC FIA",
+    "value": "R$9,745.97"
+  },
+  {
+    "type": "Funds",
+    "name": "Constellation Institucional Advisory FIC FIA",
+    "value": "R$8,475.02"
+  },
+  {
+    "type": "Funds",
+    "name": "Ibiuna Hedge ST Advisory FIC FIM",
+    "value": "R$11,601.02"
+  },
+  {
+    "type": "Fixed Revenue",
+    "name": "CDB BANCO C6 CONSIGNADO S.A. - SET/2024",
+    "value": "R$40,478.75"
+  }
+]

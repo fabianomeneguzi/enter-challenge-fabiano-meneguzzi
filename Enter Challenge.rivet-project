@@ -1,0 +1,1120 @@
+version: 4
+data:
+  attachedData:
+    trivet:
+      testSuites: []
+      version: 1
+  graphs:
+    YvuUKw6GH7rKzoZvTtSTC:
+      metadata:
+        description: ""
+        id: YvuUKw6GH7rKzoZvTtSTC
+        name: main_challenge
+      nodes:
+        '[0uS6Z7qahKPOatr8c0_Gi]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            headers: []
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Object" Png25AHv_7NpB9pPMshF5/portfolio
+          visualData: 2261.1394946586506/644.0956420531954/230/81//
+        '[2k7dTeu4ZMfcQsF31m6Cj]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            promptText: "## Prompt: Comprehensive Monthly Portfolio Attribution & Analysis\r
+
+              \r
+
+              ### Objective:\r
+
+              You are a Senior Investment Analyst. Your goal is to
+              synthesize raw portfolio data (provided in JSON format) into a
+              sophisticated, client-facing executive summary. You must go beyond
+              simple reporting by providing **attribution analysis**: explaining
+              not just *what* happened, but *which* specific assets or classes
+              drove the performance relative to the benchmark.\r
+
+              \r
+
+              ### Analysis Instructions:\r
+
+              1.  **Global Performance & Benchmark Alpha:** Start
+              with the \"Global Portfolio Return.\" Report the monthly and
+              cumulative returns, specifically highlighting the \"vs CDI\"
+              metric to show the portfolio's over/underperformance (Alpha).\r
+
+              2.  **Asset Class Contribution:** Aggregate the data
+              by \"Type\" (Stocks, Funds, Fixed Revenue). Identify which asset
+              class was the primary driver of growth and which was the main
+              detractor for the month.\r
+
+              3.  **Outlier & Concentration Analysis:** \r
+
+              \    *   Identify the \"Top Performer\" and \"Worst
+              Performer\" of the month.\r
+
+              \    *   Cross-reference the \"Weight\" of these
+              assets. Note if a significant loss was mitigated by a low weight
+              or if a gain was amplified by a high weight.\r
+
+              4.  **Cumulative Trend:** Briefly mention the
+              performance from the baseline date (Nov/25) to the current
+              reporting period (Apr/26) to provide long-term context. Nov/25 was
+              not the initial date of the investment, only a baseline month to
+              provide context.\r
+
+              \r
+
+              ### Style & Tone:\r
+
+              *   **Professional & Analytical:** Use
+              industry-standard terminology (e.g., attribution, detractor,
+              benchmark, alpha).\r
+
+              *   **Concise:** Limit the summary to 2-3
+              high-impact paragraphs.\r
+
+              *   **Action-Oriented:** Frame the data in a way
+              that informs the client's perspective on their current
+              allocation.\r
+
+              *  **Observation:** DO NOT use markdown formatting
+              (like ** ** for bold text), you should return it in pure text.\r
+
+              ---\r
+
+              \r
+
+              ### Input Data:\r
+
+              Below is the portfolio JSON data:\r
+
+              \r
+
+              \r
+
+              {{performance_data}}\r\n"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" uFA01_NatqcaHILBb9Oip/prompt
+          visualData: 875.8218156557556/229.2741519647472/280/53//
+        '[3e3_fHJXBrmSgQp2Zpv-Q]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            headers: []
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            promptText: ""
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Prompt" AICrwD_BqBBUpudD07XcT/risk_profile
+            - response->"Prompt" a5rVOdSyH-BJBRqXT_S8j/risk_profile
+          visualData: 1300.7064682936445/846.3526676584802/230/16//
+        '[7gYx8XPZ0xdjtltQGMM7H]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: portfolio_file_path
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Read File" ecEklxZpVnZv4d8lLa1g4/path
+          visualData: 30.108703183794486/130.57190010831135/330/105//
+        '[7vrg95To4eQ1_DGJeYmQY]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            headers: []
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Object" Png25AHv_7NpB9pPMshF5/macro_and_risk
+          visualData: 2334.1818314251104/1067.324104809449/230/80//
+        '[AICrwD_BqBBUpudD07XcT]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            promptText: "## Prompt: Write Part 1 of the Monthly Investment Letter (in
+              Portuguese)\r
+
+              \r
+
+              ### Objective:\r
+
+              You are a financial analyst preparing the first half
+              of a monthly investment letter to send to a middle-market client.
+              You have three inputs available: Client Risk Profile Summary,
+              Macroeconomic Outlook Summary, and Portfolio Results Summary. \r
+
+              \r
+
+              Your task is to write the opening section of the
+              letter, focusing on the portfolio's results and allocation,
+              written in **Portuguese**, that will be sent directly to the
+              client.\r
+
+              \r
+
+              ### What to include:\r
+
+              In NECESSERALY LESS than 225 words, write a polished
+              investment letter section that:\r
+
+              - Opens directly with the context of the monthly
+              report, omitting the initial greeting (Do NOT include greetings
+              like \"Prezado João\"; start directly with the introductory text,
+              \"Segue o resumo dos resultados do mês\", for example).\r
+
+              - Presents the **portfolio’s performance** and
+              current allocation.\r
+
+              - DO NOT go into Buy/Sell strategies or portfolio
+              re-strategizing, as this is handled later.\r
+
+              \r
+
+              ### Style & Tone:\r
+
+              - Formal, polished, and client-facing.\r
+
+              - Avoid repetition.\r
+
+              - Use the voice of an experienced investment
+              advisor: clear, confident, and tailored.\r
+
+              \r
+
+              ### Output format:\r
+
+              The output MUST be plain text containing the
+              Portuguese text. Use literal newline characters (\\n\\n) to
+              separate paragraphs, as this text will subsequently be inserted
+              into a JSON object. Do not use bullet points, keep it concise but
+              insightful, and avoid technical overload. Output strictly the text
+              itself without any markdown formatting, conversational filler, or
+              code blocks.\r
+
+              - Observation: DO NOT use markdown formatting (like
+              ** ** for bold text), you should return it in pure text.\r
+
+              \r
+
+              ---\r
+
+              \r
+
+              ### Inputs:\r
+
+              \r
+
+              #### 1. Client Risk Profile:\r
+
+              {{risk_profile}}\r
+
+              \r
+
+              #### 2. Macroeconomic Outlook:\r
+
+              {{macro_outlook}}\r
+
+              \r
+
+              #### 3. Portfolio Results:\r
+
+              {{portfolio_results}}"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" 0uS6Z7qahKPOatr8c0_Gi/prompt
+          visualData: 1864.981927642484/527.6151900702328/280/79//
+        '[AXdv9Gh0QLC-3ifUQaTjZ]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            jsonTemplate: ""
+            promptText: "Prompt: Generate Client Greeting from Text\r
+
+              Objective:\r
+
+              You are an automated data extraction assistant.
+              Below, you will receive an unstructured text input in Portuguese
+              (such as an email, chat transcript, or letter). Your task is to
+              identify the client's first name, which will typically appear at
+              or near the beginning of the text, infer the appropriate gendered
+              greeting in Portuguese, and return only the generated greeting as
+              plain text.\r
+
+              \r
+
+              What to include:\r
+
+              The output must consist solely of the Portuguese
+              greeting word \"Prezado\" (for male names) or \"Prezada\" (for
+              female names), followed by a space, the client's first name, and a
+              comma.\r
+
+              \r
+
+              If no name can be identified in the text, return:
+              Prezado(a) Cliente,\r
+
+              \r
+
+              Style & Tone:\r
+
+              Strict, analytical, and precise.\r
+
+              \r
+
+              Output only the text string of the greeting. Do not
+              use JSON, do not include markdown formatting, conversational
+              filler, greetings, or explanations before or after the text.\r
+
+              \r
+
+              Example Output 1 (Male):\r
+
+              Input Text:\r
+
+              \"Luis Mattos, este é o seu patrimônio.\"\r
+
+              \r
+
+              Output:\r
+
+              Prezado Luis,\r
+
+              \r
+
+              Example Output 2 (Female):\r
+
+              Input Text:\r
+
+              \"Cara Mariana de Souza, seguem os resultados do
+              trimestre.\"\r
+
+              \r
+
+              Output:\r
+
+              Prezada Mariana,\r
+
+              \r
+
+              Input:\r
+
+              Below is the portfolio data and performance
+              commentary which contains the name of the client:\r
+
+              {{portfolio_results}}"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" NKi3B-TKtuN6BwxmYi8HV/prompt
+          visualData: 1330.7446187542173/-200.21319059337304/280/46//
+        '[IRmu11M52SqjpMUwMzkU3]:readFile "Read File"':
+          data:
+            asBinary: false
+            errorOnMissingFile: false
+            path: ""
+            usePathInput: true
+          outgoingConnections:
+            - content->"Prompt" UjhTOc5lvzu3q8GmXFE4m/risk_profile
+          visualData: 461.8280030057738/950.0322377050547/280/30//
+        '[IWXX4pkv-TESkjtTRysc8]:text "Text"':
+          data:
+            text: XP - Albert_s risk profile.txt
+          visualData: 11.217498763013824/951.5574530201154/330/83//
+        '[JQcM76mHxEdGnPnpnh1Kg]:text "Text"':
+          data:
+            text: XP - Albert_s portfolio.txt
+          visualData: 35.825822633012336/-63.78956893003385/330/75//
+        '[MHKypg5L4ROK1Y6shLgwq]:graphInput "Graph Input"':
+          data:
+            dataType: object
+            id: recommendations
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt" a5rVOdSyH-BJBRqXT_S8j/recommendations
+          visualData: 1495.9142541096126/1580.2738006237403/330/107//
+        '[MqSgBX7j9HDqr07FZ0NFh]:text "Text"':
+          data:
+            text: XP - Macro analysis.txt
+          visualData: 32.75135087193208/1379.6570490664506/330/64//
+        '[NKi3B-TKtuN6BwxmYi8HV]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            headers: []
+            maxTokens: 1024
+            modalitiesIncludeAudio: false
+            modalitiesIncludeText: false
+            model: gpt-4o-mini
+            outputUsage: false
+            parallelFunctionCalling: true
+            reasoningEffort: ""
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePredictedOutput: false
+            usePresencePenaltyInput: false
+            useReasoningEffortInput: false
+            useServerTokenCalculation: true
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Object" Png25AHv_7NpB9pPMshF5/greeting
+          visualData: 1785.1725278692973/117.93478852462238/230/73//
+        '[Png25AHv_7NpB9pPMshF5]:object "Object"':
+          data:
+            jsonTemplate: |-
+              {
+                "portfolio": "{{portfolio}}",
+                "macro_and_risk": "{{macro_and_risk}}",
+                "greeting": "{{greeting}}"
+              }
+          outgoingConnections:
+            - output->"Graph Output" oFW-KOI-RmdFJXxHyDO9K/value
+          visualData: 2678.4777688844306/456.8502811394232/230/82//
+        '[RzVH_q8vpJLeuuzFdzSRF]:graphInput "Graph Input"':
+          data:
+            dataType: object
+            id: macro_outlook
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt" wyJ8JbqwMIhV21LWPMfrU/macroeconomic_outlook
+          visualData: 503.3653760872422/1589.250564858406/330/88//
+        '[U22N_i04x8d8N0zCGkJyC]:graphInput "Graph Input"':
+          data:
+            dataType: object
+            id: performance_data
+            promptText: ""
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt" 2k7dTeu4ZMfcQsF31m6Cj/performance_data
+          visualData: 320.07814944313213/410.38619904560375/330/77//
+        '[UjhTOc5lvzu3q8GmXFE4m]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            promptText: "## Prompt: Summarize the Client’s Risk Profile\r
+
+              \r
+
+              ### Objective:\r
+
+              You are a financial analyst preparing a monthly
+              investment report for a middle-market client. Your goal is to
+              summarize the client’s investor profile in a clear, concise, and
+              professional paragraph.\r
+
+              \r
+
+              The full profile includes answers to the risk
+              tolerance questionnaire, age, income level, investment goals,
+              liquidity needs, investment horizon, and previous investment
+              experience.\r
+
+              \r
+
+              ### What to include:\r
+
+              In a single paragraph, summarize the following:\r
+
+              1. The client’s risk profile (e.g., conservative,
+              moderate, growth-oriented, aggressive)\r
+
+              2. Their investment horizon (short-, medium-, or
+              long-term)\r
+
+              3. Their tolerance for volatility and potential
+              losses\r
+
+              4. Their primary investment objectives (e.g., wealth
+              accumulation, income generation, retirement planning)\r
+
+              \r
+
+              ### Style & Tone:\r
+
+              - Professional and formal (like a private banking
+              advisor)\r
+
+              - Clear, technical, and investor-facing\r
+
+              - One paragraph only\r
+
+              \r
+
+              ### Example Output:\r
+
+              \r
+
+              > The client has a moderate risk profile, with a
+              long-term investment horizon and a balanced tolerance for
+              short-term market volatility. The main objective is capital
+              accumulation with an eye toward long-term financial independence
+              and future retirement planning.\r
+
+              \r
+
+              ---\r
+
+              \r
+
+              ### Input:\r
+
+              Below is the full client profile:\r
+
+              \r
+
+              {{risk_profile}}"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" 3e3_fHJXBrmSgQp2Zpv-Q/prompt
+          visualData: 870.2458321738997/673.499247206671/280/85//
+        '[a5rVOdSyH-BJBRqXT_S8j]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            promptText: "## Prompt: Write Part 2 of the Monthly Investment Letter (in
+              Portuguese)\r
+
+              \r
+
+              ### Objective:\r
+
+              You are a financial analyst preparing the second
+              half of a monthly investment letter for your middle-market client.
+              You have four inputs available: Client Risk Profile Summary,
+              Macroeconomic Outlook Summary, Portfolio Results Summary, and a
+              set of Investment Recommendations provided in JSON format.\r
+
+              \r
+
+              Your task is to write the macroeconomic and
+              recommendation sections, written in **Portuguese**, to complete
+              the letter.\r
+
+              \r
+
+              ### What to include:\r
+
+              In approx. 350 words, write a polished investment
+              letter section that:\r
+
+              - Highlights the **macroeconomic outlook** and
+              explains how the current global/local landscape impacts portfolio
+              positioning.\r
+
+              - Synthesizes the **investment recommendations**
+              from the provided JSON data, ensuring they are presented clearly
+              and are strictly aligned with the client's risk profile.\r
+
+              - Do NOT include a professional sign-off and
+              availability for follow-ups (e.g., \"Atenciosamente,\") or a
+              signature name.\r
+
+              \r
+
+              ### Style & Tone:\r
+
+              - Formal, polished, and client-facing.\r
+
+              - Avoid repetition across sections.\r
+
+              - Use the voice of an experienced investment
+              advisor: clear, confident, and tailored.\r
+
+              - Use transitions to connect this section smoothly
+              to the previous performance section (e.g., “Nesse contexto
+              macroeconômico...”, “Diante desse cenário, nosso portfólio...”,
+              “Seguimos atentos...”).\r
+
+              - This letter is directed to your client, so always
+              use words like \"yours\" instead of mentioning him by name. \r
+
+              - You are your clients advisor writing the letter
+              directly to him, so don`t use terms like \"discuta com seu
+              assesor\", use, instead, phrases suggesting you can discuss the
+              recommendations with him more in-depth if he wishes so.\r
+
+              \r
+
+              ### Output format:\r
+
+              The output MUST be plain text containing the
+              Portuguese text. Use literal newline characters (\\n\\n) to
+              separate paragraphs, as this text will subsequently be inserted
+              into a JSON object. Do not use bullet points, keep it concise but
+              insightful, and avoid technical overload. Output strictly the text
+              itself without any markdown formatting, conversational filler, or
+              code blocks.\r
+
+              - Observation: DO NOT use markdown formatting (like
+              bold or italics), you should return it in pure text.\r
+
+              \r
+
+              ---\r
+
+              \r
+
+              ### Inputs:\r
+
+              \r
+
+              #### 1. Client Risk Profile:\r
+
+              {{risk_profile}}\r
+
+              \r
+
+              #### 2. Macroeconomic Outlook:\r
+
+              {{macro_outlook}}\r
+
+              \r
+
+              #### 3. Portfolio Results:\r
+
+              {{portfolio_results}}\r
+
+              \r
+
+              #### 4. Recommendations (JSON Format):\r
+
+              {{recommendations}}"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" 7vrg95To4eQ1_DGJeYmQY/prompt
+          visualData: 1943.1754385022687/1049.5687241173327/280/91//
+        '[eAziWdaCvhUPtrmsowquf]:readFile "Read File"':
+          data:
+            asBinary: false
+            errorOnMissingFile: false
+            path: ""
+            usePathInput: true
+          outgoingConnections:
+            - content->"Prompt" wyJ8JbqwMIhV21LWPMfrU/macroeconomic_report
+          visualData: 482.3239581458957/1377.0939367825936/280/19//
+        '[ecEklxZpVnZv4d8lLa1g4]:readFile "Read File"':
+          data:
+            asBinary: false
+            errorOnMissingFile: false
+            path: ""
+            promptText: ""
+            usePathInput: true
+          outgoingConnections:
+            - content->"Prompt" AXdv9Gh0QLC-3ifUQaTjZ/portfolio_results
+          visualData: 424.26028136610825/-82.5023808284597/280/74//
+        '[fZL_2h5MhR-UWSSVHugOH]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: macro_file_path
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Read File" eAziWdaCvhUPtrmsowquf/path
+          visualData: 46.302166879781225/1576.827254428737/330/103//
+        '[hkIVtZzf81r-fxSF15I_X]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            headers: []
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            promptText: ""
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Prompt" AICrwD_BqBBUpudD07XcT/macro_outlook
+            - response->"Prompt" a5rVOdSyH-BJBRqXT_S8j/macro_outlook
+          visualData: 1302.9369025256112/1266.0437520842254/230/22//
+        '[idcnvJD8MWvrxElGkIQo-]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: risk_file_path
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Read File" IRmu11M52SqjpMUwMzkU3/path
+          visualData: -9.8349107132521/674.8880065821636/330/104//
+        '[oFW-KOI-RmdFJXxHyDO9K]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: output
+          visualData: 2947.072280197057/475.442554441483/330/65//
+        '[uFA01_NatqcaHILBb9Oip]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Prompt" AICrwD_BqBBUpudD07XcT/portfolio_results
+            - response->"Prompt" a5rVOdSyH-BJBRqXT_S8j/portfolio_results
+          visualData: 1310.7431160433127/361.980981417884/230/54//
+        '[wyJ8JbqwMIhV21LWPMfrU]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            promptText: "\r
+
+              ### Prompt: Summarize the Macroeconomic Outlook
+              (April 2026 Update)\r
+
+              ### Objective:\r
+
+              You are a financial analyst preparing a monthly
+              investment report for a middle-market client. Your task is to
+              analyze and synthesize two distinct sources of information—an
+              internal macroeconomic report and an external web-based
+              outlook—into a clear, concise paragraph in a professional tone.\r
+
+              \r
+
+              This summary will be integrated into a client-facing
+              investment letter for April 2026. It should highlight only the
+              most relevant points from the perspective of an investor,
+              balancing internal data with broader market consensus.\r
+
+              \r
+
+              ### What to include:\r
+
+              Summarize in one or two well-structured
+              paragraphs:\r
+
+              \r
+
+              Key Macroeconomic Trends: Synthesize data on
+              inflation, interest rates, and GDP growth from both the internal
+              report and the web outlook.\r
+
+              \r
+
+              Market Sentiment: Identify the prevailing mood
+              (e.g., cautious, risk-on, volatile) based on the combined
+              sources.\r
+
+              \r
+
+              Consensus vs. Internal View: Highlight where market
+              forecasts align or diverge from internal analyst briefings.\r
+
+              \r
+
+              Investment Impact: Focus on significant updates
+              (e.g., geopolitical shifts, central bank pivots, or labor market
+              data) that necessitate portfolio consideration.\r
+
+              \r
+
+              ### Style & Tone:\r
+
+              Formal and Analytical: Maintain a high level of
+              professional rigor.\r
+
+              \r
+
+              Direct: Use jargon where appropriate (e.g.,
+              \"hawkish pause,\" \"yield curve,\" \"stagflationary risks\") but
+              prioritize clarity for the client.\r
+
+              \r
+
+              Contextual: Ensure the summary reflects the specific
+              economic environment of April 2026.\r
+
+              \r
+
+              ### Input Data:\r
+
+              Internal Macroeconomic Report:\r
+
+              {{macroeconomic_report}}\r
+
+              \r
+
+              Web-Based Market Outlook:\r
+
+              {{macroeconomic_outlook}}"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" hkIVtZzf81r-fxSF15I_X/prompt
+          visualData: 869.1307171559769/1127.760990198263/280/26//
+    bLLPdslv_TdfzK2JXF-Z2:
+      metadata:
+        description: ""
+        id: bLLPdslv_TdfzK2JXF-Z2
+        name: extract_positions
+      nodes:
+        '[-7SUqwW0MCYmr5e4ahkoH]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: portfolio_file_path
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Read File" NUCceUBcazWU6YsUw0CjJ/path
+          visualData: 688.9353067328526/463.0072449869168/330/105//
+        '[BgLsU-6tOVcMVeNI_ZFYP]:text "Text"':
+          data:
+            text: XP - Albert_s portfolio.txt
+          visualData: 396/261/330/57//
+        '[MIj_wWbXwLcGI7J9QrQGA]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            promptText: "## Prompt: Extract Portfolio Holdings into JSON\r
+
+              \r
+
+              ### Objective:\r
+
+              You are a precise data extraction assistant. Your
+              task is to analyze unstructured text from a client's investment
+              portfolio statement and extract the individual assets into a
+              structured JSON array.\r
+
+              \r
+
+              ### Instructions:\r
+
+              1. Parse the provided portfolio text and identify
+              every distinct asset.\r
+
+              2. Categorize each asset into one of three types
+              based on the document headers: \r
+
+              \   - \"Ações\" -> \"Stocks\"\r
+
+              \   - \"Fundos de Investimentos\" -> \"Funds\"\r
+
+              \   - \"Renda Fixa\" -> \"Fixed Revenue\"\r
+
+              3. Extract the Name of the asset (e.g., the ticker
+              symbol or the fund name).\r
+
+              4. Extract the Current Value (usually found under
+              \"Posição\" or \"Valor líquido\"). \r
+
+              5. Output **ONLY** valid JSON. Do not include any
+              introductory text, explanations, concluding remarks, or ``json
+              before.\r
+
+              \r
+
+              ### JSON Example Schema:\r
+
+              \r
+
+              [\r
+
+              \  {\r
+
+              \    \"type\": \"String (Stocks | Funds | Fixed
+              Revenue)\",\r
+
+              \    \"name\": \"String (Asset Name)\",\r
+
+              \    \"value\": \"String (e.g., R$27,812.04)\"\r
+
+              \  }\r
+
+              ]\r
+
+              \r
+
+              ### Input:\r
+
+              Below is the portfolio data and performance
+              commentary:\r
+
+              \r
+
+              {{portfolio}}\r\n"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" bHFMRTeuJGDCg9Dw4nBFq/prompt
+          visualData: 1356/396/280/58//
+        '[NUCceUBcazWU6YsUw0CjJ]:readFile "Read File"':
+          data:
+            asBinary: false
+            errorOnMissingFile: false
+            path: ""
+            promptText: ""
+            usePathInput: true
+          outgoingConnections:
+            - content->"Prompt" MIj_wWbXwLcGI7J9QrQGA/portfolio
+          visualData: 928/308/280/56//
+        '[bHFMRTeuJGDCg9Dw4nBFq]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            headers: []
+            maxTokens: 1024
+            modalitiesIncludeAudio: false
+            modalitiesIncludeText: false
+            model: gpt-4o
+            outputUsage: false
+            parallelFunctionCalling: true
+            reasoningEffort: ""
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePredictedOutput: false
+            usePresencePenaltyInput: false
+            useReasoningEffortInput: false
+            useServerTokenCalculation: true
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Graph Output" bXj5C2ptiSoUp_haHJkCW/value
+          visualData: 1842.4358974358975/631.4102564102564/230/null//
+        '[bXj5C2ptiSoUp_haHJkCW]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: output
+          visualData: 2329/601/330/59//
+    e4oH2Rmexd9SbxuIwOX3F:
+      metadata:
+        description: ""
+        id: e4oH2Rmexd9SbxuIwOX3F
+        name: extract_riskprofile
+      nodes:
+        '[96k0vs9c7796eHshLLXRR]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: risk_file_path
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Read File" m20l0nxAHBSLCl9tRgPeE/path
+          visualData: 491/592/330/104//
+        '[gBRGoC-ZN1nGWiqO_s1ed]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: output
+          visualData: 1994/589/330/92//
+        '[h7xE_hutg2AGO1MimhlSh]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            headers: []
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Graph Output" gBRGoC-ZN1nGWiqO_s1ed/value
+          visualData: 1614/290/230/91//
+        '[m20l0nxAHBSLCl9tRgPeE]:readFile "Read File"':
+          data:
+            asBinary: false
+            errorOnMissingFile: false
+            path: ""
+            usePathInput: true
+          outgoingConnections:
+            - content->"Prompt" tLjeVbcU2IqRNSaM9zP9e/risk_profile
+          visualData: 730/452/280/89//
+        '[qo3-D_jrcKrP0xeziJF8K]:text "Text"':
+          data:
+            text: XP - Albert_s risk profile.txt
+          visualData: 356/377/330/88//
+        '[tLjeVbcU2IqRNSaM9zP9e]:prompt "Prompt"':
+          data:
+            enableFunctionCall: false
+            promptText: "## Prompt: Categorize Client Risk Profile\r
+
+              \r
+
+              ### Objective:\r
+
+              Evaluate the provided client investor
+              profile—incorporating age, financial goals, liquidity
+              requirements, and questionnaire responses—to determine their
+              overall risk classification.\r
+
+              \r
+
+              ### Output Format:\r
+
+              Return **only** a valid JSON object with ONE single
+              word (Agressive, Moderate or Conservative). Do not include any
+              introductory text or closing remarks.\r
+
+              \r
+
+              {\r
+
+              \  \"profile\": \"Aggressive\" | \"Moderate\" |
+              \"Conservative\"\r
+
+              }\r
+
+              \r
+
+              \r
+
+              ### Classification Logic:\r
+
+              Conservative: High priority on capital preservation;
+              low tolerance for volatility; typically short-to-medium investment
+              horizons.\r
+
+              \r
+
+              Moderate: Balanced approach between growth and
+              stability; medium-to-long-term horizon; accepts fluctuations for
+              moderate returns.\r
+
+              \r
+
+              Aggressive: Focused on maximum capital appreciation;
+              long-term horizon; high tolerance for significant market drawdowns
+              and volatility.\r
+
+              \r
+
+              ### Input:\r
+
+              Below is the full client profile:\r
+
+              \r
+
+              {{risk_profile}}"
+            type: user
+            useTypeInput: false
+          outgoingConnections:
+            - output->"Chat" h7xE_hutg2AGO1MimhlSh/prompt
+          visualData: 1106/181/280/90//
+  metadata:
+    description: ""
+    id: kjLT_7qKu1l3CMXmUjSix
+    title: Enter Challenge
+  plugins: []
+  references: []

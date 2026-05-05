@@ -1,0 +1,46 @@
+{
+  "risk_profile_identified": "Moderate",
+  "strategy_applied": "Tactical Volatility Rebalancing",
+  "buy_recommendation": "Manter aportes balanceados, reforçando taticamente no último mês o papel MBRF3 (pior retorno mensal entre as ações diretas).",
+  "sell_recommendation": "Fazer rebalanceamento tático, reduzindo ligeiramente a exposição em HAPV3 (melhor retorno mensal entre as ações diretas).",
+  "portfolio_issues": {
+    "weakest_stock_last_month": {
+      "name": "MBRF3",
+      "pct": -19.45,
+      "falling_knife_3m": false
+    },
+    "strongest_stock_last_month": {
+      "name": "HAPV3",
+      "pct": 22.67,
+      "three_month_rally": false
+    }
+  },
+  "coverage_universe_last_month": {
+    "primary": {
+      "ticker": "GGBR4",
+      "last_month_pct": 19.63
+    },
+    "additional_discussion_options": [
+      {
+        "ticker": "PETR4",
+        "last_month_pct": 0.84
+      },
+      {
+        "ticker": "ITUB4",
+        "last_month_pct": 0.19
+      },
+      {
+        "ticker": "VALE3",
+        "last_month_pct": -1.58
+      }
+    ]
+  },
+  "rotation_signal": {
+    "eligible_laggard_vs_coverage_primary": true,
+    "disclaimer": "Ajustes de exposição exigem alinhamento com assessor, perfil, liquidez e preço-alvo; não é recomendação automática de compra ou venda."
+  },
+  "buy_sell_basis": {
+    "stock_selection": "last_month_only",
+    "note": "Textos de compra e venda citam apenas o pior e o melhor desempenho no último mês reportado na tabela. As bandeiras falling_knife_3m e three_month_rally em portfolio_issues são contexto adicional, não um segundo eixo de ranqueamento."
+  }
+}

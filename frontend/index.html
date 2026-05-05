@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="XP Investimentos — Painel do Assessor de Investimentos">
+  <title>XP Advisor Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+</head>
+<body>
+
+  <!-- ═══════ Navbar ═══════ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-logo">XP</span>
+      <div class="navbar-divider"></div>
+      <span class="navbar-title">Área do Assessor</span>
+    </div>
+    <div class="navbar-user">
+      <span class="navbar-username">Antonio Bicudo</span>
+      <div class="navbar-avatar">AB</div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <!-- ═══════ SCREEN 1: Client Workspace ═══════ -->
+    <section class="screen active" id="screen-workspace">
+      <div class="workspace">
+        <div class="workspace-header">
+          <h1>Meus <span>Clientes</span></h1>
+          <p>Selecione um cliente para gerar e revisar a carta mensal de investimentos.</p>
+        </div>
+        <div class="clients-grid" id="clients-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ SCREEN 2: Generation Progress ═══════ -->
+    <section class="screen" id="screen-progress">
+      <div class="progress-screen">
+        <h2 class="progress-title">Gerando carta para <span id="progress-client-name"></span></h2>
+        <p class="progress-subtitle">Aguarde enquanto nossa IA processa os dados e redige a carta...</p>
+        <div class="progress-steps" id="progress-steps">
+          <!-- Populated by SSE -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ SCREEN 3: Letter Editor ═══════ -->
+    <section class="screen" id="screen-editor">
+      <div class="editor-layout">
+
+        <!-- Sidebar: Chart + Stats -->
+        <aside class="editor-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">Performance do Portfólio</div>
+            <div class="chart-container">
+              <img id="chart-image" src="/chart" alt="Gráfico de Performance">
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">Resumo de Ativos</div>
+            <table class="perf-table" id="perf-table">
+              <thead>
+                <tr>
+                  <th>Ativo</th>
+                  <th>Peso</th>
+                  <th>Mês</th>
+                  <th>vs CDI</th>
+                </tr>
+              </thead>
+              <tbody id="perf-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </aside>
+
+        <!-- Editor Panel -->
+        <div class="editor-panel">
+          <div class="editor-header">
+            <h2 class="editor-title">Carta de Investimentos</h2>
+            <div class="editor-actions">
+              <button class="btn-back" id="btn-back" onclick="showScreen('workspace')">← Voltar</button>
+              <button type="button" class="btn-send" id="btn-download-docx">
+                <span>⬇</span> Baixar carta em Word — <span id="send-client-name">Albert</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Greeting -->
+          <div class="letter-section">
+            <div class="section-header">
+              <span class="section-label">Saudação</span>
+              <button class="btn-ai-edit" onclick="openAIEdit('greeting')">✨ Editar com IA</button>
+            </div>
+            <div class="section-content greeting" contenteditable="true" id="section-greeting"
+                 data-section="greeting"></div>
+          </div>
+
+          <!-- Portfolio -->
+          <div class="letter-section">
+            <div class="section-header">
+              <span class="section-label">Análise de Portfólio</span>
+              <button class="btn-ai-edit" onclick="openAIEdit('portfolio')">✨ Editar com IA</button>
+            </div>
+            <div class="section-content" contenteditable="true" id="section-portfolio"
+                 data-section="portfolio"></div>
+          </div>
+
+          <!-- Macro & Risk -->
+          <div class="letter-section">
+            <div class="section-header">
+              <span class="section-label">Cenário Macro &amp; Recomendações</span>
+              <button class="btn-ai-edit" onclick="openAIEdit('macro_and_risk')">✨ Editar com IA</button>
+            </div>
+            <div class="section-content" contenteditable="true" id="section-macro_and_risk"
+                 data-section="macro_and_risk"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════ AI Edit Modal ═══════ -->
+  <div class="modal-overlay" id="ai-modal">
+    <div class="modal">
+      <h3>✨ Editar com IA</h3>
+      <p>Descreva como você quer alterar esta seção. Exemplo: <em>"torne o tom mais formal"</em> ou <em>"simplifique para o cliente entender melhor"</em>.</p>
+      <textarea class="modal-input" id="ai-instruction" rows="3" placeholder="Ex: resuma em dois parágrafos..."></textarea>
+      <div class="modal-buttons">
+        <button class="btn-modal-cancel" onclick="closeAIModal()">Cancelar</button>
+        <button class="btn-modal-submit" id="btn-ai-submit" onclick="submitAIEdit()">
+          Reescrever
+        </button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// XP Advisor Dashboard — Application Logic
+// ═══════════════════════════════════════════════════════════════
+
+let currentClientId = null;
+let currentAISection = null;
+let saveTimeout = null;
+
+// ── Screen Management ──────────────────────────────────────────
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(`screen-${name}`).classList.add('active');
+}
+
+// ── Toast ──────────────────────────────────────────────────────
+function showToast(message, type = 'success') {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3500);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCREEN 1: Load Clients
+// ═══════════════════════════════════════════════════════════════
+async function loadClients() {
+  try {
+    const res = await fetch('/clients');
+    const clients = await res.json();
+    const grid = document.getElementById('clients-grid');
+    grid.innerHTML = '';
+
+    clients.forEach(client => {
+      const initials = client.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+      const returnVal = client.last_month_return || '—';
+      const isNeg = returnVal.includes('-');
+
+      const card = document.createElement('div');
+      card.className = 'client-card';
+      card.innerHTML = `
+        <div class="client-card-header">
+          <div class="client-avatar">${initials}</div>
+          <div>
+            <div class="client-name">${client.full_name || client.name}</div>
+            <div class="client-email">${client.email}</div>
+          </div>
+        </div>
+        <div class="risk-badge">Perfil Moderado</div>
+        <div class="client-stats">
+          <div class="stat-box">
+            <div class="stat-label">Patrimônio</div>
+            <div class="stat-value">${client.aum || '—'}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Último Mês</div>
+            <div class="stat-value ${isNeg ? 'negative' : 'positive'}">${returnVal}</div>
+          </div>
+        </div>
+        <button class="btn-generate" onclick="startGeneration('${client.id}', '${client.name}')">
+          ⚡ Gerar Carta Mensal
+        </button>
+      `;
+      grid.appendChild(card);
+    });
+  } catch (e) {
+    console.error('Failed to load clients:', e);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCREEN 2: Generation Pipeline (SSE)
+// ═══════════════════════════════════════════════════════════════
+function startGeneration(clientId, clientName) {
+  currentClientId = clientId;
+  document.getElementById('progress-client-name').textContent = clientName;
+  document.getElementById('send-client-name').textContent = clientName;
+  document.getElementById('progress-steps').innerHTML = '';
+  showScreen('progress');
+
+  const stepMap = {};
+  const stepsContainer = document.getElementById('progress-steps');
+
+  const eventSource = new EventSource(`/generate/${clientId}`);
+
+  eventSource.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data.step === 'pipeline') {
+      eventSource.close();
+      if (data.status === 'complete') {
+        setTimeout(() => loadEditor(), 800);
+      } else {
+        showToast('Erro na geração da carta', 'error');
+      }
+      return;
+    }
+
+    if (!stepMap[data.step]) {
+      const idx = Object.keys(stepMap).length;
+      const div = document.createElement('div');
+      div.className = 'progress-step';
+      div.style.animationDelay = `${idx * 0.1}s`;
+      div.innerHTML = `
+        <div class="step-icon">○</div>
+        <span class="step-label">${data.step}</span>
+      `;
+      stepsContainer.appendChild(div);
+      stepMap[data.step] = div;
+    }
+
+    const el = stepMap[data.step];
+    el.className = `progress-step ${data.status}`;
+
+    const icon = el.querySelector('.step-icon');
+    if (data.status === 'running') icon.innerHTML = '<span class="spinner"></span>';
+    else if (data.status === 'done') icon.textContent = '✓';
+    else if (data.status === 'error') icon.textContent = '✕';
+  };
+
+  eventSource.onerror = () => {
+    eventSource.close();
+    // Check if pipeline actually completed (SSE can close on completion)
+    setTimeout(async () => {
+      try {
+        const res = await fetch('/letter');
+        if (res.ok) loadEditor();
+        else showToast('Conexão perdida durante a geração', 'error');
+      } catch {
+        showToast('Conexão perdida durante a geração', 'error');
+      }
+    }, 1000);
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCREEN 3: Letter Editor
+// ═══════════════════════════════════════════════════════════════
+async function loadEditor() {
+  showScreen('editor');
+
+  // Load letter data
+  try {
+    const res = await fetch('/letter');
+    const letter = await res.json();
+
+    document.getElementById('section-greeting').textContent = letter.greeting || '';
+    document.getElementById('section-portfolio').textContent = letter.portfolio || '';
+    document.getElementById('section-macro_and_risk').textContent = letter.macro_and_risk || '';
+  } catch (e) {
+    console.error('Failed to load letter:', e);
+  }
+
+  // Reload chart image (cache bust)
+  document.getElementById('chart-image').src = `/chart?t=${Date.now()}`;
+
+  // Load performance table
+  loadPerformanceTable();
+
+  // Setup auto-save on edit
+  document.querySelectorAll('.section-content').forEach(el => {
+    el.addEventListener('input', debounceAutoSave);
+  });
+}
+
+async function loadPerformanceTable() {
+  try {
+    const res = await fetch('/performance');
+    const data = await res.json();
+    const tbody = document.getElementById('perf-table-body');
+    tbody.innerHTML = '';
+
+    data.forEach(row => {
+      if (row.Name === 'Global Portfolio Return') return; // skip summary row
+      const tr = document.createElement('tr');
+      const retVal = row['Last Month Return'] || '—';
+      const vsCdi = row['Last Month vs CDI'] || '—';
+      const isNeg = retVal.includes('-');
+      const isCdiNeg = vsCdi.includes('-');
+
+      // Shorten long fund names
+      let shortName = row.Name;
+      if (shortName.length > 22) shortName = shortName.substring(0, 20) + '…';
+
+      tr.innerHTML = `
+        <td title="${row.Name}">${shortName}</td>
+        <td>${row.Weight}</td>
+        <td style="color:${isNeg ? 'var(--xp-error)' : 'var(--xp-success)'}">${retVal}</td>
+        <td style="color:${isCdiNeg ? 'var(--xp-error)' : 'var(--xp-success)'}">${vsCdi}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  } catch (e) {
+    console.error('Failed to load performance data:', e);
+  }
+}
+
+// ── Auto-Save (debounced) ────────────────────────────────────
+function debounceAutoSave() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(autoSaveLetter, 1500);
+}
+
+async function autoSaveLetter() {
+  const body = {
+    greeting: document.getElementById('section-greeting').textContent,
+    portfolio: document.getElementById('section-portfolio').textContent,
+    macro_and_risk: document.getElementById('section-macro_and_risk').textContent,
+  };
+  try {
+    await fetch('/letter', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch (e) {
+    console.error('Auto-save failed:', e);
+  }
+}
+
+// ── AI Edit Modal ────────────────────────────────────────────
+function openAIEdit(section) {
+  currentAISection = section;
+  document.getElementById('ai-instruction').value = '';
+  document.getElementById('ai-modal').classList.add('active');
+  document.getElementById('ai-instruction').focus();
+}
+
+function closeAIModal() {
+  document.getElementById('ai-modal').classList.remove('active');
+  currentAISection = null;
+}
+
+async function submitAIEdit() {
+  const instruction = document.getElementById('ai-instruction').value.trim();
+  if (!instruction) return;
+
+  const btn = document.getElementById('btn-ai-submit');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Reescrevendo...';
+
+  const sectionEl = document.getElementById(`section-${currentAISection}`);
+  const currentText = sectionEl.textContent;
+
+  try {
+    const res = await fetch('/letter/ai-edit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        section: currentAISection,
+        current_text: currentText,
+        instruction: instruction,
+      }),
+    });
+
+    if (!res.ok) throw new Error('AI edit request failed');
+
+    const data = await res.json();
+    sectionEl.textContent = data.rewritten_text;
+
+    // Auto-save after AI edit
+    autoSaveLetter();
+    showToast('Seção reescrita com sucesso!');
+    closeAIModal();
+  } catch (e) {
+    showToast('Erro ao reescrever com IA', 'error');
+    console.error(e);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Reescrever';
+  }
+}
+
+// Close modal on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAIModal();
+});
+
+// ── Download Word document ───────────────────────────────────
+document.getElementById('btn-download-docx').addEventListener('click', async () => {
+  if (!currentClientId) return;
+
+  const btn = document.getElementById('btn-download-docx');
+  const name = document.getElementById('send-client-name').textContent;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Gerando documento...';
+
+  await autoSaveLetter();
+
+  try {
+    const q = new URLSearchParams({ client_id: currentClientId });
+    const res = await fetch(`/download-docx?${q}`);
+
+    if (!res.ok) {
+      let msg = 'Falha ao gerar o documento';
+      try {
+        const err = await res.json();
+        if (err.detail) msg = typeof err.detail === 'string' ? err.detail : JSON.stringify(err.detail);
+      } catch (_) { /* use default msg */ }
+      throw new Error(msg);
+    }
+
+    const blob = await res.blob();
+    const safeClient = name.replace(/[<>:"/\\|?*\x00-\x1f]/g, '_').trim() || 'Cliente';
+    const stamp = new Date().toISOString().slice(0, 10);
+    const fname = `Carta_Investimentos_${safeClient}_${stamp}.docx`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fname;
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showToast('Documento Word baixado com sucesso!');
+  } catch (e) {
+    showToast(`Erro: ${e.message}`, 'error');
+    console.error(e);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<span>⬇</span> Baixar carta em Word — <span id="send-client-name">${name}</span>`;
+  }
+});
+
+// ── Init ─────────────────────────────────────────────────────
+loadClients();
+</script>
+</body>
+</html>

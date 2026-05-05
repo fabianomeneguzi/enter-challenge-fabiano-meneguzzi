@@ -27,20 +27,22 @@ def _latest_completed_calendar_month_yyyy_mm(now: datetime.datetime | None = Non
 
 def _fetch_yahoo_monthly_returns(ticker_base: str, months_found: set) -> dict:
     """
-    Download ~6 months of monthly closes for a B3 ticker (ticker_base + '.SA').
+    Download ~12 months of monthly closes for a B3 ticker (ticker_base + '.SA').
+    Uses 1y so the oldest reporting months (e.g. Nov/Dec) still have a prior close for pct_change.
     Returns a dict of { 'YYYY-MM': float_return, ... } for months with data.
     """
     out = {}
     ticker = ticker_base + ".SA"
     try:
-        hist = yf.download(ticker, period="6mo", interval="1mo", progress=False)
+        hist = yf.download(ticker, period="1y", interval="1mo", progress=False)
         if hist.empty or len(hist) < 2:
             return out
         if isinstance(hist.columns, pd.MultiIndex):
             close_prices = hist["Close"][ticker]
         else:
             close_prices = hist["Close"]
-        returns = close_prices.pct_change().dropna().tail(5)
+        # Last 6 months to align with the table when funds/hardcoded rows include six months.
+        returns = close_prices.pct_change().dropna().tail(6)
         for date, ret in returns.items():
             month_str = date.strftime("%Y-%m")
             months_found.add(month_str)

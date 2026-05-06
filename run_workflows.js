@@ -1,6 +1,6 @@
-require('dotenv').config();
-const { runGraph, loadProjectFromFile } = require('@ironclad/rivet-node');
-const fs = require('fs');
+import 'dotenv/config';
+import fs from 'fs';
+import { runGraph, loadProjectFromFile } from '@ironclad/rivet-node';
 
 function resolveClientId() {
     const fromArg = process.argv[3];

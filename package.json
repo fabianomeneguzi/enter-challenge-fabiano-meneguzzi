@@ -9,13 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@ironclad/rivet-node": "^1.25.0",
     "axios": "^1.16.0",
     "dotenv": "^17.4.2"
-  },
-  "overrides": {
-    "@sindresorhus/fnv1a": "2.0.1"
   }
 }

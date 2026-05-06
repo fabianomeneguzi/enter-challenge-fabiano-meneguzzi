@@ -768,6 +768,136 @@ body {
   display: inline-block;
 }
 
+/* ── Advisor login ───────────────────────────────────────────── */
+.login-body {
+  min-height: 100vh;
+}
+
+.login-navbar {
+  justify-content: flex-start;
+}
+
+.login-main {
+  padding: 100px 24px 48px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--xp-card);
+  border: 1px solid var(--xp-border);
+  border-radius: var(--radius-xl);
+  padding: 40px 36px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+
+.login-title span {
+  color: var(--xp-amber);
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: var(--xp-text-muted);
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--xp-text-dim);
+  margin-top: 10px;
+}
+
+.login-label:first-of-type {
+  margin-top: 0;
+}
+
+.login-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--xp-border);
+  background: var(--xp-dark);
+  color: var(--xp-text);
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.login-input::placeholder {
+  color: var(--xp-text-dim);
+}
+
+.login-input:focus {
+  border-color: var(--xp-amber);
+  box-shadow: 0 0 0 3px var(--xp-amber-glow);
+}
+
+.login-error {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--xp-error);
+  line-height: 1.4;
+}
+
+.login-submit {
+  margin-top: 24px;
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--xp-amber), var(--xp-amber-hover));
+  color: var(--xp-black);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(245, 166, 35, 0.25);
+}
+
+.login-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.navbar-logout {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--xp-text-muted);
+  text-decoration: none;
+  margin-right: 16px;
+  transition: color var(--transition);
+}
+
+.navbar-logout:hover {
+  color: var(--xp-amber);
+}
+
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .editor-layout {

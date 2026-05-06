@@ -1,5 +1,6 @@
 fastapi
 uvicorn
+itsdangerous
 docxtpl
 python-docx
 pydantic

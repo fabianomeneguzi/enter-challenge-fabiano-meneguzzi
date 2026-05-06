@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.git/
+.env
+.env.*
+node_modules/
+dist/
+build/
+outputs/*.docx
+outputs/~$*

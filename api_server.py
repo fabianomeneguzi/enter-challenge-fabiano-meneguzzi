@@ -6,6 +6,7 @@ Run with:  uvicorn api_server:app --reload --port 8000
 """
 
 import asyncio
+import hmac
 import json
 import os
 import sys
@@ -17,14 +18,62 @@ if sys.platform == "win32":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.sessions import SessionMiddleware
+from starlette.responses import JSONResponse, RedirectResponse
 
 load_dotenv()
+
+SESSION_SECRET = (os.getenv("SESSION_SECRET") or "").strip()
+if not SESSION_SECRET:
+    SESSION_SECRET = "dev-only-insecure-secret-change-in-production"
+HTTPS_ONLY = os.getenv("RENDER", "").lower() == "true" or os.getenv(
+    "SESSION_HTTPS_ONLY", ""
+).lower() in ("1", "true", "yes")
+
+
+def _expected_advisor_credentials() -> tuple[str, str]:
+    email = (os.getenv("ADVISOR_LOGIN_EMAIL") or "").strip().lower()
+    password = os.getenv("ADVISOR_LOGIN_PASSWORD") or ""
+    return email, password
+
+
+def verify_advisor(email: str, password: str) -> bool:
+    exp_email, exp_pw = _expected_advisor_credentials()
+    if not exp_email or not exp_pw:
+        return False
+    try:
+        ok_user = hmac.compare_digest(email.strip().lower(), exp_email)
+        ok_pw = hmac.compare_digest(password, exp_pw)
+    except (TypeError, ValueError):
+        return False
+    return ok_user and ok_pw
+
+
+class AuthMiddleware(BaseHTTPMiddleware):
+    """Require advisor session for all routes except login, auth, and static assets."""
+
+    async def dispatch(self, request: Request, call_next):
+        path = request.url.path
+        if (
+            path.startswith("/static/")
+            or path.startswith("/auth/")
+            or path == "/login"
+        ):
+            return await call_next(request)
+        if request.session.get("advisor"):
+            return await call_next(request)
+        if path.startswith("/generate/"):
+            return JSONResponse({"detail": "Unauthorized"}, status_code=401)
+        if request.method in ("GET", "HEAD") and path == "/":
+            return RedirectResponse(url="/login", status_code=302)
+        return JSONResponse({"detail": "Unauthorized"}, status_code=401)
 
 # ── Internal modules (existing backend) ──────────────────────────────────────
 from rivet_runner import run_rivet_workflows
@@ -43,6 +92,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(AuthMiddleware)
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=SESSION_SECRET,
+    max_age=60 * 60 * 24 * 14,
+    same_site="lax",
+    https_only=HTTPS_ONLY,
+)
 
 # Serve the frontend static files
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
@@ -59,6 +116,11 @@ class LetterSaveRequest(BaseModel):
     greeting: str
     portfolio: str
     macro_and_risk: str
+
+
+class AdvisorLoginRequest(BaseModel):
+    email: str
+    password: str
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -100,6 +162,27 @@ def sse_event(data: dict) -> str:
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
+
+@app.get("/login")
+async def login_page(request: Request):
+    if request.session.get("advisor"):
+        return RedirectResponse("/", status_code=302)
+    return FileResponse("frontend/login.html")
+
+
+@app.post("/auth/login")
+async def auth_login(request: Request, body: AdvisorLoginRequest):
+    if not verify_advisor(body.email, body.password):
+        raise HTTPException(status_code=401, detail="E-mail ou senha incorretos")
+    request.session["advisor"] = body.email.strip().lower()
+    return {"success": True}
+
+
+@app.get("/auth/logout")
+async def auth_logout(request: Request):
+    request.session.clear()
+    return RedirectResponse("/login", status_code=302)
+
 
 @app.get("/")
 async def serve_index():

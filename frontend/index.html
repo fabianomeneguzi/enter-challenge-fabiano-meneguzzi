@@ -18,6 +18,7 @@
       <span class="navbar-title">Área do Assessor</span>
     </div>
     <div class="navbar-user">
+      <a class="navbar-logout" href="/auth/logout">Sair</a>
       <span class="navbar-username">Antonio Bicudo</span>
       <div class="navbar-avatar">AB</div>
     </div>
@@ -149,6 +150,16 @@ let currentClientId = null;
 let currentAISection = null;
 let saveTimeout = null;
 
+/** Same-origin fetch; sends session cookie. Redirects to login if unauthorized. */
+async function apiFetch(url, options = {}) {
+  const res = await fetch(url, { credentials: 'same-origin', ...options });
+  if (res.status === 401) {
+    window.location.href = '/login';
+    throw new Error('Unauthorized');
+  }
+  return res;
+}
+
 // ── Screen Management ──────────────────────────────────────────
 function showScreen(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -171,7 +182,7 @@ function showToast(message, type = 'success') {
 // ═══════════════════════════════════════════════════════════════
 async function loadClients() {
   try {
-    const res = await fetch('/clients');
+    const res = await apiFetch('/clients');
     const clients = await res.json();
     const grid = document.getElementById('clients-grid');
     grid.innerHTML = '';
@@ -268,7 +279,7 @@ function startGeneration(clientId, clientName) {
     // Check if pipeline actually completed (SSE can close on completion)
     setTimeout(async () => {
       try {
-        const res = await fetch('/letter');
+        const res = await apiFetch('/letter');
         if (res.ok) loadEditor();
         else showToast('Conexão perdida durante a geração', 'error');
       } catch {
@@ -286,7 +297,7 @@ async function loadEditor() {
 
   // Load letter data
   try {
-    const res = await fetch('/letter');
+    const res = await apiFetch('/letter');
     const letter = await res.json();
 
     document.getElementById('section-greeting').textContent = letter.greeting || '';
@@ -310,7 +321,7 @@ async function loadEditor() {
 
 async function loadPerformanceTable() {
   try {
-    const res = await fetch('/performance');
+    const res = await apiFetch('/performance');
     const data = await res.json();
     const tbody = document.getElementById('perf-table-body');
     tbody.innerHTML = '';
@@ -353,7 +364,7 @@ async function autoSaveLetter() {
     macro_and_risk: document.getElementById('section-macro_and_risk').textContent,
   };
   try {
-    await fetch('/letter', {
+    await apiFetch('/letter', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -388,7 +399,7 @@ async function submitAIEdit() {
   const currentText = sectionEl.textContent;
 
   try {
-    const res = await fetch('/letter/ai-edit', {
+    const res = await apiFetch('/letter/ai-edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -434,7 +445,7 @@ document.getElementById('btn-download-docx').addEventListener('click', async () 
 
   try {
     const q = new URLSearchParams({ client_id: currentClientId });
-    const res = await fetch(`/download-docx?${q}`);
+    const res = await apiFetch(`/download-docx?${q}`);
 
     if (!res.ok) {
       let msg = 'Falha ao gerar o documento';
